@@ -1,6 +1,7 @@
 package com.timepp.sudoku.data
 
-import com.timepp.sudoku.SudokuUtils
+import android.util.Log
+import com.timepp.sudoku.utils.SudokuUtils
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -85,8 +86,10 @@ class Sudoku(getValue: (index: Int) -> Int) : AbsSudoku() {
     fun fill(): Boolean {
         var item: SudokuItem
         var fillStep: FillStep
+        val test = System.currentTimeMillis()
         while (true) {
             if (waitToFillItems.size == 0) {
+                Log.d("Sudoku", "fill use time = ${System.currentTimeMillis() - test}")
                 return true
             } else {
                 item = waitToFillItems.removeAt(0)

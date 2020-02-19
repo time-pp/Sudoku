@@ -22,6 +22,10 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
         private const val GRID_LINE_COUNT = 6
     }
     var sudoku: Sudoku? = null
+    set(value) {
+        field = value
+        invalidate()
+    }
     private var selectPosition = -1
     private val drawHelper = DrawHelper()
     private val paint = Paint()
@@ -59,7 +63,6 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
     private fun drawNumbers(canvas: Canvas) {
         val sudoku = this.sudoku ?: return
         drawHelper.apply {
-            textPaint.color = globalColor
             textPaint.textSize = fontSize
             var startY = -gridSize
             for (y in 0 until SUDO_UNIT) {
@@ -89,6 +92,7 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
                     canvas.drawRect(startX, startY, startX + gridSize, startY + gridSize, paint)
                 }
                 if (sudokuItem.value != NOT_SURE_NUM) {
+                    textPaint.color = if (sudokuItem.isFixed) globalColor else fillNumberColor
                     canvas.drawText(sudokuItem.value.toString(), startX + textX, startY + textY, textPaint)
                 } else {
                     drawNote(canvas, startX, startY, sudokuItem.noteArray)
@@ -118,7 +122,6 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
                 }
             }
             textPaint.textSize = fontSize
-            textPaint.color = globalColor
         }
     }
 
@@ -221,6 +224,8 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
         val selectNumberBackColor = resources.getColor(R.color.sudoku_select_number_back_color)
         // 笔记文字颜色
         val noteColor = resources.getColor(R.color.sudoku_note_color)
+        // 填充的数字的文字颜色
+        val fillNumberColor = resources.getColor(R.color.sudoku_fill_number_color)
         var viewSize = 0
         set(value) {
             field = value

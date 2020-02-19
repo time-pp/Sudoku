@@ -8,5 +8,6 @@
     <color name="sudoku_select_area_back_color">#F1EEE0</color>
     <color name="sudoku_select_numbers_back_color">#D5D0C5</color>
     <color name="sudoku_select_number_back_color">#BFD6FF</color>
+    <color name="sudoku_fill_number_color">#0080FF</color>
     <color name="sudoku_note_color">#508AEE</color>
 </resources>

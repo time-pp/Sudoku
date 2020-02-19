@@ -16,7 +16,7 @@ class SudokuItem constructor(var isFixed: Boolean, val x: Int, val y: Int, var v
             tryNum = null
         } else {
             optionalSet = mutableSetOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
-            noteArray = BooleanArray(AbsSudoku.SUDO_UNIT) { y == 1 }
+            noteArray = BooleanArray(AbsSudoku.SUDO_UNIT) { false }
             tryNum = ArrayList()
         }
     }
