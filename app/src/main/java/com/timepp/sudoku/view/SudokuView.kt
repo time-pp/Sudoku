@@ -87,7 +87,7 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
                 if (sudokuIndex == selectPosition) {
                     paint.color = selectNumberBackColor
                     canvas.drawRect(startX, startY, startX + gridSize, startY + gridSize, paint)
-                } else if (sudokuItem.value == selectValue) {
+                } else if (sudokuItem.value == selectValue && selectValue != NOT_SURE_NUM) {
                     paint.color = selectNumbersBackColor
                     canvas.drawRect(startX, startY, startX + gridSize, startY + gridSize, paint)
                 }
