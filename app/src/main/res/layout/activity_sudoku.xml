@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SudokuActivity">
+
+    <com.timepp.sudoku.view.SudokuView
+        android:id="@+id/sudokuView"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/buildSudoku1"
+            android:text="build sudoku1"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/buildSudoku2"
+            android:text="build sudoku2"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buildSudoku3"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="build sudoku3" />
+
+        <Button
+            android:id="@+id/buildSudoku4"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="build sudoku4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buildSudoku5"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="build sudoku5" />
+
+        <Button
+            android:id="@+id/fillSudoku"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="fill sudokuSolver" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="1"
+            android:id="@+id/fill1"
+            android:layout_height="match_parent"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="2"
+            android:id="@+id/fill2"
+            android:layout_height="match_parent"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="3"
+            android:id="@+id/fill3"
+            android:layout_height="match_parent"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="4"
+            android:id="@+id/fill4"
+            android:layout_height="match_parent"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="5"
+            android:id="@+id/fill5"
+            android:layout_height="match_parent"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="6"
+            android:id="@+id/fill6"
+            android:layout_height="match_parent"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="7"
+            android:id="@+id/fill7"
+            android:layout_height="match_parent"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="8"
+            android:id="@+id/fill8"
+            android:layout_height="match_parent"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="9"
+            android:id="@+id/fill9"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</LinearLayout>

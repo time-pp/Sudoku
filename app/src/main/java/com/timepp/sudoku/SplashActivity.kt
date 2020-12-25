@@ -10,8 +10,7 @@ class SplashActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         Thread { SudokuUtils.unzipFile(this)}.start()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, SudokuActivity::class.java))
         finish()
     }
-
 }

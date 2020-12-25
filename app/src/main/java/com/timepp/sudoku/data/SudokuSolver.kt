@@ -1,52 +1,19 @@
 package com.timepp.sudoku.data
 
 import android.util.Log
-import com.timepp.sudoku.utils.SudokuUtils
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Sudoku(getValue: (index: Int) -> Int) : AbsSudoku() {
+class SudokuSolver(getSudokuItem: (index: Int) -> SudokuItem) : AbsSudoku() {
     override val sudokuItems: Array<SudokuItem>
     private val waitToFillItems = ArrayList<SudokuItem>()
     private val fillStack = Stack<FillStep>()
     private val stepCache: ArrayList<FillStep>
 
-    companion object {
-        fun buildByValues(sudokuValues: IntArray): Sudoku {
-            if (sudokuValues.size != SUDO_SIZE) {
-                throw IllegalArgumentException("values size must be $SUDO_SIZE")
-            }
-            return Sudoku() {pos -> sudokuValues[pos]}
-        }
-
-        fun buildByFileContent(sudokuValues: ByteArray): Sudoku {
-            if (sudokuValues.size != SudokuUtils.SUDOKU_MIN_SIZE) {
-                throw IllegalArgumentException("values size must be ${SudokuUtils.SUDOKU_MIN_SIZE}")
-            }
-            var currentValueIndex = 0
-            var currentValue = sudokuValues[currentValueIndex].toUByte().toInt()
-            var valueIndex = currentValue / 10
-            return Sudoku() { pos ->
-                    if (pos != valueIndex) {
-                        SudokuItem.NOT_SURE_NUM
-                    } else {
-                        val result = currentValue % 10
-                        if (++currentValueIndex != SudokuUtils.SUDOKU_MIN_SIZE) {
-                            currentValue = sudokuValues[currentValueIndex].toUByte().toInt()
-                            valueIndex += currentValue / 10 + 1
-                        }
-                        result
-                    }
-            }
-        }
-    }
-
     init {
         val sureItems = ArrayList<SudokuItem>()
         sudokuItems = Array(SUDO_SIZE) { i ->
-            val value = getValue(i)
-            val sudoItem = SudokuItem(value != SudokuItem.NOT_SURE_NUM,
-                i % SUDO_UNIT, i / SUDO_UNIT, value)
+            val sudoItem = getSudokuItem(i)
             if (!sudoItem.isFixed) {
                 waitToFillItems.add(sudoItem)
             } else {
@@ -60,6 +27,8 @@ class Sudoku(getValue: (index: Int) -> Int) : AbsSudoku() {
         stepCache = ArrayList(waitToFillItems.size)
         waitToFillItems.sortBy { it.optionalSet?.size }
     }
+
+    constructor(sudokuRiddle: SudokuRiddle) : this({ sudokuRiddle.sudokuItems[it].copy() })
 
     private fun modifyOptional(item: SudokuItem, affectItems: ArrayList<SudokuItem>?) {
         item.apply {
@@ -83,7 +52,7 @@ class Sudoku(getValue: (index: Int) -> Int) : AbsSudoku() {
         }
     }
 
-    fun fill(): Boolean {
+    private fun fill(): Boolean {
         var item: SudokuItem
         var fillStep: FillStep
         val test = System.currentTimeMillis()
@@ -108,16 +77,17 @@ class Sudoku(getValue: (index: Int) -> Int) : AbsSudoku() {
         }
     }
 
-    fun getAnswer() = if (fill()) SudokuAnswer(sudokuItems) else null
 
-    fun getAllAnswer(): List<SudokuAnswer> {
-        val answers = ArrayList<SudokuAnswer>()
-        var answer = getAnswer()
-        while (answer != null) {
-            answers.add(answer)
-            answer = if (goBack()) getAnswer() else null
+    fun getSolution() = if (fill()) SudokuSolution(sudokuItems) else null
+
+    fun getAllSolution(): List<SudokuSolution> {
+        val solutions = ArrayList<SudokuSolution>()
+        var solution = getSolution()
+        while (solution != null) {
+            solutions.add(solution)
+            solution = if (goBack()) getSolution() else null
         }
-        return answers
+        return solutions
     }
 
     private fun getFillStep(item: SudokuItem): FillStep {
@@ -145,12 +115,6 @@ class Sudoku(getValue: (index: Int) -> Int) : AbsSudoku() {
             fillStep.fillItem.reset()
         }
         return false
-    }
-
-    fun reset() {
-        while (fillStack.size > 0) {
-            goBack()
-        }
     }
 
     data class FillStep(var fillItem: SudokuItem, var affectItems: ArrayList<SudokuItem>)

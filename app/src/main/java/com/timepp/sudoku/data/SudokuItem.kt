@@ -2,7 +2,7 @@ package com.timepp.sudoku.data
 
 import java.util.*
 
-class SudokuItem constructor(var isFixed: Boolean, val x: Int, val y: Int, var value: Int) {
+data class SudokuItem constructor(var isFixed: Boolean, val x: Int, val y: Int, var value: Int) {
     companion object {
         const val NOT_SURE_NUM = 0
     }
