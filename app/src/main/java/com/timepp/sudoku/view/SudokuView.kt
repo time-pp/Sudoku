@@ -9,13 +9,13 @@ import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.timepp.sudoku.R
 import com.timepp.sudoku.data.AbsSudoku.Companion.SUDO_UNIT
 import com.timepp.sudoku.data.SudokuItem
 import com.timepp.sudoku.data.SudokuItem.Companion.NOT_SURE_NUM
 import com.timepp.sudoku.data.SudokuRiddle
+import com.timepp.sudoku.data.SudokuRiddle.Companion.FILL_RESULT_CAN_NOT_FILL
 import kotlin.math.min
 
 class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -30,6 +30,7 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
     var sudokuRiddle: SudokuRiddle? = null
     set(value) {
         field = value
+        value?.resetErrorCell()
         invalidate()
     }
     private var selectPosition = -1
@@ -100,7 +101,11 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
                     canvas.drawRect(startX, startY, startX + cellSize, startY + cellSize, paint)
                 }
                 if (sudokuItem.value != NOT_SURE_NUM) {
-                    textPaint.color = if (sudokuItem.isFixed) globalColor else fillNumberColor
+                    textPaint.color = when {
+                        sudokuItem.isError || sudokuIndex in sudokuRiddle.conflictCellPos -> errorNumberColor
+                        sudokuItem.isFixed -> globalColor
+                        else -> fillNumberColor
+                    }
                     canvas.drawText(sudokuItem.value.toString(), startX + textX, startY + textY, textPaint)
                 } else {
                     drawNote(canvas, startX, startY, sudokuItem.noteArray)
@@ -166,6 +171,7 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
         }
         selectPosition = row * SUDO_UNIT + column
         drawHelper.initSelectAreaPath()
+        sudokuRiddle?.checkSelectCell(selectPosition)
         invalidate()
     }
 
@@ -187,17 +193,10 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
         return -1
     }
 
-    fun fillNum(number: Int) {
-        if (selectPosition < 0) {
-            return
-        }
-        sudokuRiddle?.run {
-            sudokuItems[selectPosition].value = number
-            if (!isValid()) {
-                Toast.makeText(context, "傻逼", Toast.LENGTH_SHORT).show()
-            }
-            invalidate()
-        }
+    fun fillNum(number: Int): Int {
+        val result = sudokuRiddle?.fillNum(selectPosition, number) ?: FILL_RESULT_CAN_NOT_FILL
+        invalidate()
+        return result
     }
 
     inner class DrawHelper {
@@ -248,6 +247,8 @@ class SudokuView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
         val noteColor = ResourcesCompat.getColor(resources, R.color.sudoku_note_color, null)
         // 填充的数字的文字颜色
         val fillNumberColor = ResourcesCompat.getColor(resources, R.color.sudoku_fill_number_color, null)
+        // 填错的数字的文字颜色
+        val errorNumberColor = ResourcesCompat.getColor(resources, R.color.sudoku_error_number_color, null)
         var viewSize = 0
         set(value) {
             field = value

@@ -3,6 +3,7 @@ package com.timepp.sudoku.utils
 import android.content.Context
 import com.timepp.sudoku.constants.TAG_SUDOKU_UTILS
 import com.timepp.sudoku.data.AbsSudoku
+import com.timepp.sudoku.data.AbsSudoku.Companion.SUDOKU_MIN_SIZE
 import com.timepp.sudoku.data.SudokuSolver
 import com.timepp.sudoku.data.SudokuItem
 import com.timepp.sudoku.data.SudokuRiddle
@@ -21,7 +22,6 @@ object SudokuUtils {
     private const val FILL_NUM_NORMAL = 16
     private const val FILL_NUM_HARD = 8
     private const val FILL_NUM_HELL = 0
-    private const val SUDOKU_MIN_SIZE = 17
     private const val READ_SIZE = 50 * SUDOKU_MIN_SIZE
     private const val ZIP_FILE_PATH = "sudoku.dat"
     private const val UNZIP_FILE_PATH = "result.txt"

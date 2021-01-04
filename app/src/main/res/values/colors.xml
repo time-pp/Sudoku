@@ -5,9 +5,10 @@
     <color name="colorAccent">#D81B60</color>
     <color name="sudoku_global_color">#333333</color>
     <color name="sudoku_cell_div_color">#BBBBBB</color>
-    <color name="sudoku_select_area_back_color">#F1EEE0</color>
-    <color name="sudoku_select_numbers_back_color">#D5D0C5</color>
+    <color name="sudoku_select_area_back_color">#E7EBF4</color>
+    <color name="sudoku_select_numbers_back_color">#CCD1DB</color>
     <color name="sudoku_select_number_back_color">#BFD6FF</color>
     <color name="sudoku_fill_number_color">#0080FF</color>
+    <color name="sudoku_error_number_color">#ED1039</color>
     <color name="sudoku_note_color">#508AEE</color>
 </resources>

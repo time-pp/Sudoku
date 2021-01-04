@@ -2,7 +2,9 @@ package com.timepp.sudoku
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.timepp.sudoku.data.SudokuRiddle
 import com.timepp.sudoku.utils.SudokuUtils
 import kotlinx.android.synthetic.main.activity_sudoku.*
 
@@ -59,7 +61,9 @@ class SudokuActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.fill9 -> 9
                 else -> return
             }
-            sudokuView.fillNum(number)
+            if (sudokuView.fillNum(number) == SudokuRiddle.FILL_RESULT_SOLVED) {
+                Toast.makeText(this, "厉害啊", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

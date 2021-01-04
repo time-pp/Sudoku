@@ -8,6 +8,7 @@ data class SudokuItem constructor(var isFixed: Boolean, val x: Int, val y: Int, 
     }
     val optionalSet: MutableSet<Int>?
     val noteArray: BooleanArray?
+    var isError: Boolean = false
     private val tryNum: ArrayList<Int>?
     init {
         if (value != NOT_SURE_NUM) {

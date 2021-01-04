@@ -5,6 +5,7 @@ abstract class AbsSudoku {
         // 数独的大小
         const val SUDO_SIZE = 81
         // 数独的一个单元的大小，即行/列/宫格的大小
+        const val SUDOKU_MIN_SIZE = 17
         const val SUDO_UNIT = 9
         // use for toString()
         private const val SEPARATOR = ','
