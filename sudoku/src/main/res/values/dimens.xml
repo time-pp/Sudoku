@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_sudoku_size">300dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="line_width_dp_3">3dp</dimen>
+    <dimen name="line_width_px_1">1px</dimen>
+</resources>

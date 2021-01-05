@@ -8,9 +8,15 @@ import com.timepp.sudoku.data.SudokuRiddle
 import com.timepp.sudoku.utils.SudokuUtils
 import kotlinx.android.synthetic.main.activity_sudoku.*
 
-class SudokuActivity : AppCompatActivity(), View.OnClickListener {
+class SudokuActivity: AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // TODO: hwh 1/5/21 数字填完提醒
+        // TODO: hwh 1/5/21 界面优化
+        // TODO: hwh 1/5/21 点击事件处理
+        // TODO: hwh 1/5/21 生成数独事件置于MainActivity
+        // TODO: hwh 1/5/21 暂停和恢复
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sudoku)
         buildSudoku1.setOnClickListener(this)
